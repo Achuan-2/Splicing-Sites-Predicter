@@ -28,7 +28,7 @@ for the creation and improvement of annotations of sequenced genomes. In this pa
 
 \textbf{Key Words}: Bayesian Network, Machine Learning, Gene Finding, Splice Sites.
 
-\textbf{Availability}: \href{https://github.com/pgmpy}{phttps://github.com/Achuan-2/Splicing-Sites-Predicter}
+\textbf{Availability}: \href{https://github.com/Achuan-2/Splicing-Sites-Predicter}{https://github.com/Achuan-2/Splicing-Sites-Predicter}
 
 \section{INTRODUCTION}\label{introduction}
 
@@ -183,20 +183,20 @@ T ; otherwise, it will be claimed pseudo.
 Compare the performance of Bayesian Network with other models such as
 WAM and SVM by ROC and PR plot.
 
-Receiver operating characteristic(ROC for short) Curve is a curve
+Receiver operating characteristic (ROC for short) Curve is a curve
 reflecting the relationship between sensitivity and specificity. The
 closer the ROC curve is to the upper left corner, the higher the
 accuracy of the test. The point closest to the top left corner of the
 ROC curve is the best threshold with the least errors, and the total
 number of false positives and false negatives is the least. AUC is the
 area under the ROC curve. The meaning of AUC probability is to randomly
-take a pair of positive and negative samples, and the probability that
+take a pair of positive and negative s4amples, and the probability that
 the score of positive samples is greater than that of negative samples.
 AUC is robust to the unbalanced distribution of positive and negative
 samples, and it is a very common measure of classifier.
 
 Precision-Recall is a useful measure of success of prediction when the
-classes are very imbalanced(PR plot for short). In information
+classes are very imbalanced (PR plot for short). In information
 retrieval, precision is a measure of result relevancy, while recall is a
 measure of how many truly relevant results are returned.When the
 distribution of positive and negative samples is unbalanced, the ROC
@@ -226,7 +226,7 @@ The Testing set is Burset \& Guigo set. The dataset assembled by Burset
 and Guigo(1996) consists of 570 vertebrate genomic sequences containing
 exaxctly multi-exon gene. There are 2079 exons and introns in the whole
 dataset, with more than 140000 pseudo exons and introns in the dataset.
-e( the testing dataset can be found at
+( the testing dataset can be found at
 \url{https://genome.crg.cat/datasets/genomics96/})
 
 \subsection{Bayesian Network Results}\label{bayesian-network-results}
@@ -238,7 +238,7 @@ shown in Figure\ref{fig:network}.
 
 
 Using the Bayesian network to train model, ROC and PR curves and
-confusion matrixes are shown in Figure\ref{fig:Wbplot} and Figure\ref{fig:BNmatrix}. It can be seen from ROC
+confusion matrixes are shown in Figure\ref{fig:WBplot} and Figure\ref{fig:BNmatrix}. It can be seen from ROC
 and PR curves that the performance of this model is ordinary. Although
 we consider the correlation of all bases, the performance of the model
 is not significantly improved compared with WAM.
@@ -256,14 +256,14 @@ is not significantly improved compared with WAM.
   \centering
   \includegraphics[width=1\linewidth]{assets/image-20210624154804096.png}
   \caption{Receiver Operating Charateristic Curve (left) and Precison/Recall
-  Curve(right) for WAM+Bayesian Network and other models}
+  Curve(right) for Bayesian, WAM+Bayesian Network and other models}
   \label{fig:WBplot}
 \end{figure*}
 
 \begin{figure*}
   \centering
   \includegraphics[width=0.8\linewidth]{assets/image-20210624154725944.png}
-  \caption{Confusion Matrix for Bayesian: The left is under the threshold is
+  \caption{Confusion Matrix for Bayesian Network: The left is under the threshold is
   the best parameter of ROC curve. The right is under the threshold when
   F1-score is highest.}
   \label{fig:BNmatrix}
@@ -298,7 +298,7 @@ Bayesian network is used to predict the samples whose score is higher
 than the threshold value.
 
 I set the threshold value of the first layer WAM to - 3, and the result
-is excellent. As can be seen from Figure\ref{fig:Wbplot}and Fig\ref{fig:WBmatrix}, the AUROC of WAM+BN
+is excellent. As can be seen from Figure \ref{fig:WBplot} and Fig\ref{fig:WBmatrix}, the AUROC of WAM+BN
 is 0.988, close to the SVM Poly Kernel preformance. Compared with WAM
 and BN, the PR curve has been greatly improved, although it is worse
 than SVM Poly Kernel.
@@ -340,7 +340,7 @@ greatly improved the prediction accuracy of the model.
 When constructing the network structure, I tried to use contingency
 table to find the association of each base by \(\chi^2\) test, and
 constructed the network for positive and negative samples respectively,see Figure~\ref*{fig:positive} and Figure \ref*{fig:negative}.
-But for negative samples, see Figure \ref*{fig:negative} I almost got a full connection diagram. In
+But for negative samples, see Figure \ref*{fig:negative}, I almost got a full connection diagram. In
 view of too many parameters, finally abandoned this method.
 
 \section{ACKNOWLEDGEMENTS}\label{acknowledgements}
