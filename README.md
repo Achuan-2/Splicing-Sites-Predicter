@@ -11,15 +11,22 @@ Nucleotide distribution around splicing sites
 
 ## WAM
 
+![Distribution_Probability.png](https://b3logfile.com/siyuan/1610205759005/assets/pr_plot-20210625104703-al68s14.png)
+
+![Distribution_Probability.png](https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210625104715-nlwll4i.png)
+
 ![Distribution_Probability.png](https://b3logfile.com/siyuan/1610205759005/assets/Distribution_Probability-20210602235755-1mc7fo9.png)
 
 ![Distribution_Probability_Cumsumed.png](https://b3logfile.com/siyuan/1610205759005/assets/Distribution_Probability_Cumsumed-20210602235747-irmi2lo.png)
 
 ![Plot_boxplot.png](https://b3logfile.com/siyuan/1610205759005/assets/Plot_boxplot-20210602235722-h05gaj2.png)
 
-![ROC_plot.png](https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210603000901-9ckqyny.png)
 
-![Plot_PR.png](https://b3logfile.com/siyuan/1610205759005/assets/Plot_PR-20210603000559-g71mn39.png)
+
+![ROC_plot.png](https://b3logfile.com/siyuan/1610205759005/assets/plot_ROC-20210625105031-fo42f09.png)
+
+![Plot_PR.png](https://b3logfile.com/siyuan/1610205759005/assets/plot_PR_curve-20210625105041-0ol09o5.png)
+
 
 ## SVM
 
