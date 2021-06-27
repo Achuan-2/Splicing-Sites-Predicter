@@ -1,10 +1,12 @@
 <div class="cover" style="page-break-after:always;font-family:方正公文仿宋;width:100%;height:100%;border:none;margin: 0 auto;text-align:center;">
-    <div style="width:60%;margin: 0 auto;height:0;padding-bottom:10%;">
+    <div style="width:80%;margin: 0 auto;height:0;padding-bottom:10%;">
         </br>
-        <img src="assets/hust.jpg" alt="校名" style="width:100%;"/>
+        <img src="assets/image-20210627190721366.png" alt="校名" style="zoom:150%;"/>
     </div>
-    </br></br></br></br></br>
-    </br></br></br></br></br></br></br></br>
+    </br></br></br></br></br></br>
+    <div style="font-family:华文黑体Bold;text-align:center;font-size:30pt;margin: 10pt auto;line-height:30pt;">生物信息数据挖掘报告
+    </div>
+</br></br>
     <span style="font-family:华文黑体Bold;text-align:center;font-size:20pt;margin: 10pt auto;line-height:30pt;">Prediction of Splicing Sites by SVM
 </span>
     </br>
@@ -43,7 +45,7 @@
 	<tr style="font-weight:normal;"> 
 		<td style="width:20%;text-align:right;">日　　期</td>
 		<td style="width:2%">：</td> 
-		<td style="width:28%;font-weight:normal;border-bottom: 1px solid;text-align:center;font-family:华文仿宋">2021.06.08</td>     </tr>
+		<td style="width:28%;font-weight:normal;border-bottom: 1px solid;text-align:center;font-family:华文仿宋">2021.06.12</td>     </tr>
 </tbody>              
 </table></center>
 </div>
@@ -67,7 +69,6 @@
 <div style="width:82px;float:left;line-height:16pt"><b>Key Words: </b></div> 
 <div style="overflow:hidden;line-height:16pt">SVM, Machine Learning, Gene Finding, Splice Site.</div>
 </div>
-
 ## AIM
 
 * Fully understand the mathematical principle of Support Vector Machine(SVM), kernel function type and kernel parameter selection principle.
@@ -75,7 +76,7 @@
 
 ## BACKGROUND
 
-Among the various tools in computational genetic research, gene prediction remains one of the most prominent tasks, as recent competitions have further emphasised. Accurate gene prediction is of prime importance for the creation and improvement of annotations of recently sequenced genomes . In the light of new data related to natural variation, the importance of accurate computational gene finding gains increasing importance since it helps to understand the effects of polymorphisms on the gene products.
+Among the various tools in computational genetic research, gene prediction remains one of the most prominent tasks.  Accurate gene prediction is of prime importance for the creation and improvement of annotations of recently sequenced genomes . In the light of new data related to natural variation, the importance of accurate computational gene finding gains increasing importance since it helps to understand the effects of polymorphisms on the gene products.
 
 In eukaryotic genes, splice sites mark the boundaries between exons and introns. The latter are excised from premature mRNAs in a post-processing step after transcription. Both the donor sites at the exon-intron junctions, and the acceptor sites at the intron-exon boundaries, have quite strong consensus sequences which can, however, vary significantly from one organism to another. The vast majority of all splice sites are so called canonical splice sites which are characterised by the presence of the dimers GT and AG for donor and acceptor sites, respectively. The occurrence of the dimer is not sufficient for the splice site. Indeed, it occurs very frequently at non splice site positions.
 
@@ -195,7 +196,9 @@ Precision-Recall is a useful measure of success of prediction when the classes a
 
 Figure 1 shows the sequence logo of 11 upstream bases and 11 downstream bases of all donor site GT base pairs in the training dataset. A sequence logo is a graphical representation of an amino acid or nucleic acid multiple sequence alignment. Each logo consists of stacks of symbols, one stack for each position in the sequence. The overall height of the stack indicates the sequence conservation at that position, while the height of symbols within the stack indicates the relative frequency of each amino or nucleic acid at that position. In general, a sequence logo provides a richer and more precise description of, for example, a binding site, than would a consensus sequence.
 
-From the sequence logoof all donor site GT bases for the upstream 11 bases and the downstream 11 bases, we can find that the bases at sites -3 to 5 are conservative, while the base frequencies at other sites are disordered, so I choose -3 to 5 as the signal sequence. However, considering that SVM may be able to find unknown base associations, I also choose other lengths to explore the model effect,using  SVM function in the Python Sklearn package for training and predicting.
+From the sequence logo of the upstream 11 bases and the downstream 11 bases from the GT
+
+ base pair , we can find that the bases at sites -3 to 5 are conservative, while the base frequencies at other sites are disordered, so I choose -3 to 5 as the signal sequence. However, considering that SVM may be able to find unknown base associations, I also choose other lengths to explore the model effect,using SVM function in the Python Sklearn package for training and predicting.
 
 ### Window=[-3, 6]
 
@@ -217,22 +220,21 @@ Select a window of 9 base positions was chosen for the donor site, where 3 conse
 | poly   | 0.190185  | 0.928331 | 0.315695 |
 | linear | 0.115289  | 0.96152  | 0.205891 |
 
-Table 1. shows the paramter selected. Table 2. shows the default evaluation results for the three models
-
-It can be seen that the F1-score of RBF nucleus is the highest, while the recall value of linear nucleus is the highest
+Table 1 shows the paramter selected. Table 2 shows the default evaluation results for the three models. It can be seen that the F1-score of RBF nucleus is the highest, while the recall value of linear nucleus is the highest
 
 <center class="half">
-    <img src="https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210516200902-dcmlrtx.png" width="310"/>
-    <img src="https://b3logfile.com/siyuan/1610205759005/assets/PR_plot-20210517094913-3au7f60.png" width="310"/>
+    <img src="https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210516200902-dcmlrtx.png" width="319"/>
+    <img src="https://b3logfile.com/siyuan/1610205759005/assets/PR_plot-20210517094913-3au7f60.png" width="319"/>
 </center>
 <center>Fig 2. ROC plot and PR plot where 3 consecutive bases are upstream from the
 exon/intron boundary and 4 consecutive bases are downstream to the exon/intron boundary</center>
 
-From the ROC plot, it can be seen that the AUC of RBF is the highest up to 0.9769, which is quite good, but there is not much difference between RBF and Linear, and Poly effect is not very good (maybe the parameters are not set well).
 
-According to the PR plot, the AUC of linear kernel  is the highest, and the precision of 0.1-0.7 for Recall is higher than that of other kernels, while the precision of RBF is still good when the accuracy of 0.7-1 for Recall
+From the ROC,  it can be seen that the AUC of RBF is the highest up to 0.9769, which is quite good, but there is not much difference between RBF and Linear, and the predicting effect of Poly Kenrel is not good (maybe the parameters are not set well).
 
-I separately selecte RBF to make the tendency of Recall and Precision under different thresholds. It can be seen that the F1-score keeps rising. When the threshold is set to 0.9, the F1-score is 0.457, and the Recall is 0.730 while the Precision is 0.333, not bad.
+According to the PR curve, the AUC of linear kernel  is the highest, and when Recall is  0.1-0.7, Precision is higher than that of other kernels,  but when  Recall is 0.7-1.0,  Precision of RBF is highest.
+
+I select RBF to make the tendency of Recall and Precision under different thresholds. It can be seen that F1-score keeps rising. When the threshold is set to 0.9, the F1-score is 0.457, and the Recall is 0.730 while the Precision is 0.333, not bad.
 
 <img src="assets/Different_Threshold_Predictions-20210516201440-4vqlzha.png" alt="Different_Threshold_Predictions.png" title="Figure 3" style="width:310px" />
 
@@ -242,9 +244,9 @@ I separately selecte RBF to make the tendency of Recall and Precision under diff
 
 ### Window=[-3, 10]
 
-Although it can be seen from the above weblogo that the information entropy after the fifth site upstream  from GT is very small,I  still hope that SVM can find the hidden information, so I try selecting the  a window of 13 base positions where 3 consecutive bases are upstream from the exon/intron  boundary and 10 consecutive bases are downstream to theexon/intron boundary.
+Although it can be seen from the above weblogo that the information entropy after the fifth site upstream  from GT is very small,I still hope that SVM can find the hidden information, so I try selecting a window of 13 base positions where 3 consecutive bases are upstream from the exon/intron  boundary and 10 consecutive bases are downstream to theexon/intron boundary.
 
-A total of 283712 pseudo signals  are  extracted, which have little effect after de duplication, so 1 / 10 = 28371 samples are randomly extracted.
+A total of 283712 pseudo signals  are  extracted, which have little effect after duplication, so 1 / 10 = 28371 samples are randomly extracted.
 
 <center>Table 3. The Paramters of Different Kernels for Sample Length = 13</center>
 
@@ -263,15 +265,16 @@ A total of 283712 pseudo signals  are  extracted, which have little effect after
 | linear | 0.128707  | 0.9519   | 0.226755 |
 
 <center class="half">
-    <img src="https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210516203731-1temp80.png" width="310"/>
-    <img src="https://b3logfile.com/siyuan/1610205759005/assets/PR_plot-20210517100125-bv9o8m3.png" width="310"/>
+    <img src="https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210516203731-1temp80.png" width="319"/>
+    <img src="https://b3logfile.com/siyuan/1610205759005/assets/PR_plot-20210517100125-bv9o8m3.png" width="319"/>
 </center>
 <center>Fig 4. ROC plot and PR plot where 3 consecutive bases are upstream from the
 exon/intron boundary and 10 consecutive bases are downstream to the exon/intron boundary</center>
 
-Surprisingly, the result is  better than that of the previous 9 base samples. The AUC values of the three nucleuses are all higher than those of the previous one. On the contrary, the Poly nucleus exceeded the linear Kernel  and the RBF Kernel, and the AUC reache 0.9827.
 
-As can be seen from the PR plot ,the curves are also significantly improved, and the AUC of RBF  reaches 0.5978. When Recall is from  0 to 0.7, Precision is significantly higher than that of the other two kernels, while Recall of the Poly kernel is from 0.8 to 1.0 , still maintains a good precison.
+Surprisingly, the result is  better than that of the previous 9 base samples. The AUC values of the three nucleuses are all higher than those of the previous one. On the contrary, the Poly nucleus exceeded the linear Kernel and the RBF Kernel, and the AUC reach 0.9827.
+
+As can be seen from PRC ,the curves are also significantly improved, and the AUC of RBF  reaches 0.5978. When Recall is from  0 to 0.7, Precision in RBF Kernel is significantly higher than that of the other two kernels, while Recall of the Poly kernel is from 0.8 to 1.0 , still maintains a good precison.
 
 　　<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
 	<tbody>
@@ -303,17 +306,18 @@ Select a window of 40  base positions was chosen for the donor site, where 20 co
 | poly   | 0.49357   | 0.830688 | 0.619218 |
 | linear | 0.143736  | 0.955748 | 0.24989  |
 
-The results are surprisingly good.The AUC of Poly kernel is up to 0.9903, the RBF kernel and the linear kernel are up to 0.9896 and 0.9804 respectively. The PR-AUC of Poly kernel is up to  0.7007 , while the RBF kernel is  up to 0.6665.
+The results are surprisingly good.The AUROC of Poly kernel is up to 0.9903, the RBF kernel and the linear kernel are up to 0.9896 and 0.9804 respectively. The AUPRC of Poly kernel is up to  0.7007 , while the RBF kernel is  up to 0.6665.
 
 <center class="half">
-    <img src="https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210602065759-4o1f05r.png" width="310"/>
-    <img src="https://b3logfile.com/siyuan/1610205759005/assets/PR_plot-20210602065916-fs6co0b.png" width="310"/>
+    <img src="https://b3logfile.com/siyuan/1610205759005/assets/ROC_plot-20210602065759-4o1f05r.png" width="319"/>
+    <img src="https://b3logfile.com/siyuan/1610205759005/assets/PR_plot-20210602065916-fs6co0b.png" width="319"/>
 </center>
 <center>Fig 6. ROC plot and PR plot where 20 consecutive bases are upstream from the
 exon/intron boundary and 20 consecutive bases are downstream to the exon/intron boundary</center>
+
 <img src="https://b3logfile.com/siyuan/1610205759005/assets/image-20210607025621-07mvc4i.png" alt="image.png" style="width:310px" />
 
-<center>Fig 7.  The Tendency of Recall and Precision under different thresholds in Poly Kernel and RBF kernel when sample length = 40.</center>
+<center>Fig 7.  The Tendency of Recall and Precision under different thresholds in Poly Kernel when sample length = 40.</center>
 
 <center class="half">
     <img src="https://b3logfile.com/siyuan/1610205759005/assets/confusion_matrix_p_0.07-20210602070208-66v4mim.png" width="300"/>
@@ -323,7 +327,7 @@ exon/intron boundary and 20 consecutive bases are downstream to the exon/intron 
     <img src="https://b3logfile.com/siyuan/1610205759005/assets/confusion_matrix_p_0.65-20210602070147-xkjro1g.png" width="300"/>
     <img src="https://b3logfile.com/siyuan/1610205759005/assets/confusion_matrix_p_0.9-20210602070107-3mubnuv.png" width="300"/>
 </center>
-<center>Fig 8. Confusion Matrixes under different thresholds</center>
+<center>Fig 8. Confusion Matrixes under different thresholds in Poly Kernel</center>
 
 ## DISCUSSION & CONCLUSION
 

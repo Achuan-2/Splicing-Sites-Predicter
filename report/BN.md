@@ -1,10 +1,12 @@
 <div class="cover" style="page-break-after:always;font-family:方正公文仿宋;width:100%;height:100%;border:none;margin: 0 auto;text-align:center;">
-    <div style="width:60%;margin: 0 auto;height:0;padding-bottom:10%;">
+    <div style="width:80%;margin: 0 auto;height:0;padding-bottom:10%;">
         </br>
-        <img src="assets/hust.jpg" alt="校名" style="width:100%;"/>
+        <img src="assets/image-20210627190721366.png" alt="校名" style="zoom:150%;"/>
     </div>
-    </br></br></br></br></br>
-    </br></br></br></br></br></br></br></br>
+    </br></br></br></br></br></br>
+    <div style="font-family:华文黑体Bold;text-align:center;font-size:30pt;margin: 10pt auto;line-height:30pt;">专业创新创业训练报告
+    </div>
+	</br></br>
     <span style="font-family:华文黑体Bold;text-align:center;font-size:20pt;margin: 10pt auto;line-height:30pt;">Prediction of Splicing Sites by BN
 </span>
     </br>
@@ -25,10 +27,6 @@
     		<td style="width:2%">：</td> 
     		<td style="width:28%;font-weight:normal;border-bottom: 1px solid;text-align:center;font-family:华文仿宋">周艳红 </td>     </tr>
         <tr style="font-weight:normal;"> 
-    		<td style="width:20%;text-align:right;">课程名字</td>
-    		<td style="width:2%">：</td> 
-    		<td style="width:28%;font-weight:normal;border-bottom: 1px solid;text-align:center;font-family:华文仿宋">生物信息数据挖掘</td>     </tr>
-        <tr style="font-weight:normal;"> 
     		<td style="width:20%;text-align:right;">班　　级</td>
     		<td style="width:2%">：</td> 
     		<td style="width:28%;font-weight:normal;border-bottom: 1px solid;text-align:center;font-family:华文仿宋">生信基地1801</td>     </tr>
@@ -47,9 +45,9 @@
 </tbody>              
 </table></center>
 </div>
+
+
 <!-- 注释语句：导出PDF时会在这里分页 -->
-
-
 
 # Prediction of Splicing Sites by BN
 

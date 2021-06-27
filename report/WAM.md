@@ -1,12 +1,14 @@
 <div class="cover" style="page-break-after:always;font-family:方正公文仿宋;width:100%;height:100%;border:none;margin: 0 auto;text-align:center;">
-    <div style="width:60%;margin: 0 auto;height:0;padding-bottom:10%;">
+    <div style="width:80%;margin: 0 auto;height:0;padding-bottom:10%;">
         </br>
-        <img src="assets/hust.jpg" alt="校名" style="width:100%;"/>
+        <img src="assets/image-20210627190721366.png" alt="校名" style="zoom:150%;"/>
     </div>
-    </br></br></br></br></br>
-    </br></br></br></br></br></br></br></br>
-    <span style="font-family:华文黑体Bold;text-align:center;font-size:20pt;margin: 10pt auto;line-height:30pt;">Prediction of Splicing Sites 
-by WAM</span>
+    </br></br></br></br></br></br>
+    <div style="font-family:华文黑体Bold;text-align:center;font-size:30pt;margin: 10pt auto;line-height:30pt;">生物信息数据挖掘报告
+    </div>
+</br></br>
+    <span style="font-family:华文黑体Bold;text-align:center;font-size:20pt;margin: 10pt auto;line-height:30pt;">Prediction of Splicing Sites by WAM
+</span>
     </br>
     </br>
 	</br>
@@ -18,7 +20,7 @@ by WAM</span>
 </br>
 </br>
 </br>
-<center>    <table style="border:none;text-align:center;width:50%;font-family:仿宋;font-size:14px; margin: 0 90px 0 20px;">
+<center>    <table style="border:none;text-align:center;width:50%;font-family:仿宋;font-size:14px; margin: 40px 90px 0 20px;">
     <tbody style="font-family:方正公文仿宋;font-size:12pt;">
     	<tr style="font-weight:normal;"> 
     		<td style="width:20%;text-align:right;">授课教师</td>
@@ -60,11 +62,11 @@ by WAM</span>
 
 ## HYPOTHESIS:
 
-内含子剪切需要区分外显子和内含子，主要识别包括内含子 5‘及 3’末端序列即中间分支点（branch site）附近序列。5‘剪切点称为供体点（donor site），3’剪切点称为受体点（acceptor site）。内含子开始和末尾的碱基最为保守，为 GU-AG（约占 99.24%），少数为 GC-AG（0.7%），极少数为（AU-AC）。
+真核生物的基因包含外显子和内含子，剪接时需要区分外显子和内含子，研究发现在内含子和外显子边界存在保守的剪切位点，包括内含子 5‘和3’末端序列及中间分支点（branch site）附近序列。5‘剪切点称为供体点（donor site），3’剪切点称为受体点（acceptor site）。内含子开始和末尾的碱基最为保守，为 GU-AG（约占 99.24%），少数为 GC-AG（0.7%），极少数为（AU-AC）。
 
 ![image.png](assets/image-20210517213830-9adfhpz.png)
 
-内含子 donor site 和 acceptor site 上下游的碱基位点与其他位点碱基分布存在差异，通过该差异可以区别真剪切位点和假剪切位点。而在构建模型时，选取的 donor site 上下游序列的长度将极大影响着模型预测性能，需要选取最适长度进行模型构建。
+内含子 donor site 和 acceptor site 上下游的碱基位点与其他位点碱基分布存在差异并假设相邻的碱基存在关联，通过碱基的分布差异可以区别真剪切位点和假剪切位点。在构建模型时，选取的 donor site 上下游序列的长度将极大影响着模型预测性能，需要选取最适长度进行模型构建。
 
 ## METHODS:
 
@@ -84,7 +86,7 @@ Training Set 文件夹有 462 个文件，每个文件对应一个基因，共 2
 
 Testing Set 文件夹有 570 个文件夹，共 2079 个内含子，该文件夹下的文件名后缀有 TXT 和 txt 混存，与 Training Set 相比有些结构区别：
 
-* 第一行只有">"+ 基因座，如">ACU08131",如果直接用 biopython 提取不太好用了
+* 第一行只有">"+ 基因座，如">ACU08131"
 * 第二行为"> 基因座名"+ 外显子位置，如">AGGGLINE(3066..3157,3281..3503,4393..4521)"
 * 第三行起为基因序列，每行 60 个，基因序列为大写。
 
@@ -110,9 +112,9 @@ Testing Set 文件夹有 570 个文件夹，共 2079 个内含子，该文件夹
 #### 第四步：进行预测
 
 1. 通过决策函数，先计算训练集提取出的信号序列的分值，统计正样本和负样本的分值分布情况
-2. 提取测试集每个文件中的 donor 序列和假 signal 序列，放在一个文件中，donor 序列标记为 1，假 signal 序列标记为 0，运用打分公式，给测试集每个 signal 序列打分
+2. 提取测试集每个文件中的 donor 序列和假 signal 序列，放在一个文件中，donor 序列标记为 1，假 signal 序列标记为 0，给测试集每个 signal 序列打分
 
-打分公式：
+判别函数：
 
 $$
 S(X)=ln\frac{P^+(X)}{P^-(X)} = ln\frac{p^+(1,x_1)}{p^-(1,x_1)}+\sum_{i=2}^\lambda ln\frac{p^+(1,x_{i-1},x_i)}{p^-(1,x_{i-1},x_i)}
@@ -152,31 +154,31 @@ $$
 
 根据提取的 signal 序列，得到碱基概率分布矩阵和条件概率分布矩阵。
 
-从分布热图来看，可以看到 donor signal 和 common signal、pseudo donor signal 的碱基概率分布矩阵和相邻碱基条件概率矩阵存在较大差异。对于普通位点来说，每个位点的碱基分布十分相近。pseudo donor signa 除了 GT 碱基对，其他位置的碱基概率分布与 true donor signal 存在明显的区别。
+从分布热图来看，可以看到 donor signal 和 common signal、pseudo donor signal 的碱基概率分布矩阵和相邻碱基条件概率矩阵存在较大差异。对于普通位点来说，每个位点的碱基分布十分相近。pseudo donor signal 除了 GT 碱基对，其他位置的碱基概率分布与 true donor signal 存在明显的区别。
 
 <center class="half">
-    <img src="assets/plot_Nucleotide Distribution Probabilities around Donor Sites-left4-right6.png" width="200"/>
-    <img src="assets/plot_Nucleotide Distribution Probabilities around pseudo Donor Sites-left4-right6.png" width="200"/>
-    <img src="assets/Nucleotide Distribution Probabilities around common Sites-left4-right6.png" width="200"/>
+    <img src="assets/plot_Nucleotide Distribution Probabilities around Donor Sites-left4-right6.png" width="500"/>
+    <img src="assets/plot_Nucleotide Distribution Probabilities around pseudo Donor Sites-left4-right6.png" width="319"/>
+    <img src="assets/Nucleotide Distribution Probabilities around common Sites-left4-right6.png" width="319"/>
 </center>
-
-
 <center>图 2. donor site，pseudo donor site和common site的碱基分布概率矩阵</center>
 
+
+
+
+
 <center class="half">
-    <img src="assets/plot_Dependence between Adjacent Base Pairs of Donor Sites-left4-right6.png" width="200"/>
-    <img src="assets/plot_Dependence between Adjacent Base Pairs  of pseudo Donor Sites-left4-right6.png" width="200"/>
-    <img src="assets/Dependence between Adjacent Base Pairs  of common Sites-left4-right6.png" width="200"/>
+    <img src="assets/plot_Dependence between Adjacent Base Pairs of Donor Sites-left4-right6.png" width="450"/>
+    <img src="assets/plot_Dependence between Adjacent Base Pairs  of pseudo Donor Sites-left4-right6.png" width="320"/>
+    <img src="assets/Dependence between Adjacent Base Pairs  of common Sites-left4-right6.png" width="319"/>
 </center>
-
-
 <center>图 3. donor site，pseudo donor site和common site的相邻碱基条件概率矩阵</center>
 
 ### WAM 得分情况
 
 根据 WAM 判别函数计算提取的训练集所有 signal 序列得分，并统计其分布情况。
 
-绿色代表 true donor signal，红色代表 pseudo donor signal，查看正样本和负样本的分值分布情况。正样本的分值大多数分布在 0 到 6 之间，而负样本的分值大多数分布在 0 到-8 间，但还有一部分分值高于 0。通过分值分布的累计图，可以大概估计其 recall 和 precision 值。
+绿色代表 true donor signal，红色代表 pseudo donor signal，查看正样本和负样本的分值分布情况。正样本的分值绝大多数分布在 0 到 6 之间，而负样本的分值大多数分布在 0 到-8 间，但还有一部分分值高于 0。通过分值分布的累计图，可以大概估计其 recall 和 precision 值。
 
 ![plot_Distribution_Probability](assets/plot_Distribution_Probability.png)
 
@@ -194,11 +196,11 @@ $$
 
 通过调整 donor 位点上下游碱基序列长度，比较不同滑动窗口的预测性能
 
-<img src="assets/ROC_plot-1624105766240.png" alt="ROC_plot" style="zoom:50%;" />
+<img src="assets/ROC_plot-1624105766240.png" alt="ROC_plot" style="zoom:45%;" />
 
 <center>图7. 不同signal序列的ROC曲线</center>
 
-<img src="assets/ROC_plot-1624105729801.png" alt="ROC_plot" style="zoom:50%;" />
+<img src="assets/ROC_plot-1624105729801.png" alt="ROC_plot" style="zoom:45%;" />
 
 <center>图8. 不同signal序列的ROC曲线</center>
 
@@ -206,21 +208,19 @@ $$
 
 分析window=[-4,6]时，WAM和WMM的性能差异，画 ROC 图和 PR 图，当阈值为 0.2750的时候，为 ROC 图的最佳临界点，这时 Sn-FPR 的值取最高，Recall 达到 0.96 且误判率较低，Precision 也达到 0.13，F1-score 为 0.23。WAM的ROC曲线和PR曲线都显著高于WMM模型。
 
-<center class="half">
-    <img src="assets/plot_ROC-1624110811378.png" width="310"/>
-    <img src="assets/plot_PR_curve.png" width="310"/>
+<center>
+    <img src="assets/plot_ROC-1624110811378.png" width="500"/>
+    <img src="assets/plot_PR_curve.png" width="500"/>
 </center>
-
-
-
-
 <center>图 9. window=[-4,6]时，WAM和WMM 预测性能比较</center>
 
-<img src="assets/plot_Different Threshold Predictions.png" alt="plot_Different Threshold Predictions" style="zoom:50%;" />
+接着绘制window=[-4,6]时，各阈值下Precision、Recall和F1-score变化的趋势图。随着阈值提高，Precision先上升，但不可避免的Recall值不断下降，在阈值为5.0左右，Precision又回落。在阈值为2.7时，F1-score取得最大。F1-score是综合考虑了Precision和Recall值的指标。
+
+<img src="assets/plot_Different Threshold Predictions-1624780223892.png" alt="plot_Different Threshold Predictions" style="zoom:40%;" />
 
 <center>图 10. window=[-4,6]时，WAM各阈值下的Precision和Recall、F1-score趋势图</center>
 
-各阈值的预测结果
+<center>表1 各阈值的预测结果</center>
 
 | Threshold | TP   | FP     | TN     | FN   | Recall   | Precision | F1-Score | Sn       |
 | --------- | ---- | ------ | ------ | ---- | -------- | --------- | -------- | -------- |
@@ -241,7 +241,7 @@ $$
 | 5.5       | 77   | 44     | 149139 | 2002 | 0.037037 | 0.636364  | 0.07     | 0.999705 |
 | 6         | 0    | 0      | 149183 | 2079 | 0        | NA        | NA       | 1        |
 
-绘制阈值为 0.2750（ROC 最佳参数点）和阈值为 2.7（F1-score 最高点）的混淆矩阵
+绘制阈值为 0.2750（ROC 最佳参数点）和阈值为 2.7（F1-score 最高点）的混淆矩阵，以比较两个最佳参数点的区别。ROC最佳参数点是真阳性率减去假阳性率最大的阈值点，代表分类模型发现正样本和负样本的总能力。如图11，可以看此时Recall=0.96, Precision=0.13, F1-score=0.23，但从混淆矩阵可知这时FP多达13415。 而F1-score是是精确率和召回率的调和平均数，认为召回率和精确率同等重要，最高点则是综合考虑Precision和Recall值，从图11右侧的混淆矩阵得知，此时Precision=0.45，Recall = 0.58，F1-score=0.51，虽然FP减少到了1498，但TP也只有1209.
 
 <center class="half">
     <img src="assets/plot_confusion_matrix_p_0.2750.png" width="300"/>
@@ -257,34 +257,35 @@ $$
 
 第二层 WAM 使用所有第一层 WAM 打分分值高于阈值的样本，再次进行训练。
 
-在对测试集进行预估的时候，也是先用第一层 WAM 进行打分，分值小于阈值的样本判定为负样本，分值高于阈值的样本再送入第二层 WAM，再次进行打分。最终设定阈值为-4 ，这样第一层就能过滤掉一半的负样本，同时正样本绝大部分分值都高于这个阈值。
+在对测试集进行预估的时候，也是先用第一层 WAM 进行打分，分值小于阈值的样本判定为负样本，分值高于阈值的样本再送入第二层 WAM，再次进行打分。最终设定阈值为-4 ，这样第一层就能过滤掉很大部分的负样本，同时绝大部分正样本分值都高于这个阈值。
 
-从第二层 WAM 对训练集输入的正负样本的打分分布情况来看，正样本和负样本并不能区分，在-3和4分值区间内都有所重叠。
+从第二层 WAM 对训练集输入的正负样本的打分分布情况来看，正样本和负样本并不能很好区分，在-3和4分值区间内都有所重叠。虽然较于第一层WAM有所改善。
 
 ![2-WAM-Distribution_Probability](assets/2-WAM-Distribution_Probability.png)
 
 <center>图 12. 第二层 WAM 对训练集输入的正负样本的打分分布情况</center>
 
-从  ROC 图和 PR 图可以得知，Double-WAM 的 ROC  和 PR 曲线都略微有点提升，说明两层的 WAM 确实能稍微提高模型预测的准确度，但效果有限。第二层的 WAM 依然对输入的正负样本的区分度并不好，可能需要更换其他模型来识别这些难以区分的样本。
+从  ROC 图和 PR 图可以得知，Double-WAM 的 ROC  和 PR 曲线都略微有点提升，说明两层的 WAM 确实能稍微提高模型预测的准确度，但效果比较有限。鉴于第二层的 WAM 依然对输入的正负样本的区分度并不好，可能需要更换其他模型来识别这些难以区分的样本。
 
 <center class="half">
-    <img src="assets/D-WAMROC_plot - Copy.png" width="310"/>
-    <img src="assets/D-WAM_PR_plot - Copy.png" width="310"/>
+    <img src="assets/D-WAMROC_plot - Copy.png" width="500"/>
+    <img src="assets/D-WAM_PR_plot - Copy.png" width="500"/>
 </center>
-
 <center>图 13. Double-WAM的ROC和PR图</center>
+
+
 
 ## DISCUSSION & CONCLUSION
 
 ### 模型性能
 
-通过调整 donor 位点上下游碱基序列长度，比较不同滑动窗口的预测性能，选取最佳的 signal 序列长度为[-4,6]；WAM 考虑了双碱基之间的关联，预测结果比 WMM 好，但总体来说效果还是差强人意，Precision 最高只将近 0.7，也就是说无论如何调整阈值，预测为 donor site 的正样本中都含有很大一部分假样本，假阳性较高。最后，我还尝试使用双层 WAM 对模型进行改进，但预测结果只有有些许提升。
+本报告通过调整 donor 位点上下游碱基序列长度，比较不同滑动窗口的预测性能，选取最佳的 signal 序列长度为[-4,6]；WAM 考虑了双碱基之间的关联，预测结果比 WMM 更好，但总体来说效果还是差强人意，Precision 最高只将近 0.7，也就是说无论如何调整阈值，预测为 donor site 的正样本中都含有很大一部分假样本，假阳性较高。最后，我还尝试使用双层 WAM 对模型进行改进，但预测结果也只有些许提升。
 
 ### 关于改进
 
 * WAM 虽然考虑了碱基间的关联，但只考虑了相邻碱基的关联，但没有探索三个以上碱基的相互关系。可以进一步尝试更多碱基间的相互关系；
 * 训练集会较大程度影响到模型性能。可以寻找其他公开的基因数据集，查看 WAM 在不同模型的预测效果；
-* 从碱基序列只能获得新的生物学信息，例如利用 pre-mRNA 的结构信息来帮助预测剪接位点；
+* 从碱基序列只能获得新的生物学信息，可以利用其他生物学信息，例如利用 pre-mRNA 的结构信息来帮助预测剪接位点；
 * 目前只用 WAM 预测了 donor site，可以尝试预测 acceptor site比较两者差异。
 
 ## REFERENCE

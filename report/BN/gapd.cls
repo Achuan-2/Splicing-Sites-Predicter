@@ -103,7 +103,6 @@
 \newcommand{\@DrawTitle}
 {
    \noindent
-   \colorbox{TitleShadeColour}
    {\begin{minipage}{13.65cm}
           \vspace{3mm}
           \noindent
@@ -179,7 +178,7 @@
 {
 \fancyhead[L]{}
 \fancyhead[C]{{\small\textit{\@Type}}}
-\fancyfoot[L]{\footnotesize \@BibAuthorList, `\@ShortTitle,' Huazhong University of Science and Technology $\copyright$ \@Year}
+\fancyfoot[L]{\footnotesize J.Su, \@ShortTitle,Huazhong University of Science and Technology $\copyright$ \@Year}
 }
 \thispagestyle{firststyle}
 
