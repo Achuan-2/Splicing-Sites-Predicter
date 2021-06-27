@@ -1,3 +1,4 @@
+<a title="Hits" target="_blank" href="https://github.com/Achuan-2/Splicing-Sites-Predicter"><img src="https://hits.b3log.org/Achuan-2/Splicing-Sites-Predicter.svg" ></a>
 # Splicing-Sites-Predicter
 A gene  is a basic unit of heredity and a sequence of nucleotides in DNA or RNA that encodes the synthesis of a gene product, either RNA or protein.  Gene prediction or gene finding refers to the process of identifying the regions of genomic DNA that encode genes. This includes protein-coding genes as well as RNA genes, but may also include prediction of other functional elements such as regulatory regions. Gene finding is one of the first and most important steps in understanding the genome of a species once it has been sequenced.
 
