@@ -22,7 +22,7 @@
 \RequirePackage[usenames,dvipsnames]{xcolor} % for colour boxes
 \RequirePackage{fancyhdr} % for page headers
 \RequirePackage[
-     paperwidth=16.83cm, paperheight=26.03cm,
+     paperwidth=20cm, paperheight=42cm,
      textwidth=276pt, textheight=524pt,
      margin={14mm,16mm},
      headsep = 14pt,
